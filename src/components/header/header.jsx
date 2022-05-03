@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import "../../index.css";
 
 const pages = [
   { title: "Home", path: "/" },
@@ -33,13 +34,15 @@ export const Header = () => {
     <AppBar position="static">
       <Container maxWidth="xl" style={{ background: "white", color:"black" }}>
         <Toolbar disableGutters>
-          <Typography
+          <Typography className="font-link"
             variant="h6"
             noWrap
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
+            <span className="font-link" style={{color:"#bd4c00"}}>
             ADVENTURE QUEST
+            </span>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
