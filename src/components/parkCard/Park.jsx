@@ -11,13 +11,25 @@ import PushPinIcon from '@mui/icons-material/PushPin';
 import IconButton from '@mui/material/IconButton';
 
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-
+import {useContext} from "react";
 import { Button, CardActions } from '@mui/material';
-
+import { PinsContext } from "../app/context";
 
 export const Park = (props) => {
   
     const navigate = useNavigate();
+
+    const listContext = useContext(PinsContext);
+    
+    const addToList = (park) => {
+      listContext.listDispatch({
+        type: "add",
+        index: props.index,
+        park: {park},
+        notes: " ",
+      });
+    };
+
       return(
       
           <div>
@@ -33,7 +45,7 @@ export const Park = (props) => {
            ></CardMedia>
         
       
-          <IconButton size="small"style={{marginLeft: "auto", position: "absolute", top: "1%", right: "1%", margin: "0%"}} onClick = {() => props.addPinnedParks(props.park)}>
+          <IconButton size="small"style={{marginLeft: "auto", position: "absolute", top: "1%", right: "1%", margin: "0%"}} onClick = {() => addToList(props.park)}>
             <PushPinIcon style = {{color: "white"}}/>
           </IconButton>
      

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -14,7 +14,17 @@ import Button from '@mui/material/Button';
 
 import PushPinIcon from '@mui/icons-material/PushPin';
 import IconButton from '@mui/material/IconButton';
+import { PinsContext } from "../app/context";
 
+//import Rating  from 'react-rating-scale';
+import Slider from 'react-carousel-responsive';
+import 'react-carousel-responsive/dist/styles.css';
+
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import logo3 from "../../parks.jpg";
+
+import park from "../../parks.jpg";
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -25,6 +35,17 @@ import { Reviews } from "@mui/icons-material";
 export const ParkInfo = (props) => {
   const { parkCode } = useParams();
   const [park, setPark] = useState({});
+
+  const listContext = useContext(PinsContext);
+
+  const addToList = (park) => {
+    listContext.listDispatch({
+      type: "add",
+      park: {park},
+      notes: " ",
+    });
+  };
+
 
   useEffect(() => {
     fetch(
@@ -38,14 +59,17 @@ export const ParkInfo = (props) => {
 
   return (
     <div>
+     
       <div style={{ width: "75%", margin: "auto" }}>
         {/* <div style={{width: "75%", margin:"auto"}}><img src={park?.images[0]?.url} style={{height:"300px", width:"90%", margin: "auto", marginTop: "2%"}}/></div> */}
         <h2>{park.fullName}
-        <IconButton size="small"style={{marginLeft: "auto"}} onClick = {() => props.addPinnedParks(park)}>
+        <IconButton size="small"style={{marginLeft: "auto"}} onClick = {() => addToList(park)}>
         <PushPinIcon/>
         </IconButton>
         </h2>
       </div>
+      {console.log(park.images)}
+      <Pictures park = {park}/>
       <div style={{ width: "75%", margin: "auto" }}>
         <Accordion>
           <AccordionSummary
@@ -165,7 +189,7 @@ export const ParkInfo = (props) => {
       </div>
 
 
-      <Box sx={{ width: 500, height: 450, overflowY: 'scroll' }}>
+      {/* <Box sx={{ width: 500, height: 450, overflowY: 'scroll' }}>
       <ImageList variant="masonry" cols={3} gap={8}>
         {park.images && park.images.map((item) => (
           <ImageListItem key={item.img}>
@@ -179,11 +203,39 @@ export const ParkInfo = (props) => {
           </ImageListItem>
         ))}
       </ImageList>
-    </Box>
+    </Box> */}
   );
     </div>
   );
 };
+
+function Pictures(props){
+  return(
+    <div>
+        <div className="carousel-wrapper" style={{width:"40%", margin:"auto"}}>
+            <Carousel infiniteLoop useKeyboardArrows autoPlay showThumbs={false}>
+              {/* {console.log(props.park)} */}
+            {props.park.images &&props.park.images.map((item, index) => (
+              <div style={{height: "20rem"}}>
+              <img  src={item.url}  onError={(e) => (e.target.onerror = null, e.target.src = logo3)}/>
+              
+            </div>
+            ))}
+                {/* <div>
+                    <img src={park} />
+                </div>
+                <div>
+                    <img src={park} />
+                </div>
+                <div>
+                    <img src={park} />
+                </div> */}
+            </Carousel>
+        </div>
+   
+    </div>
+  );
+}
 
 function WriteReview(props) {
   const [value, setValue] = React.useState(0);

@@ -40,9 +40,9 @@ export const Header = () => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            <span className="font-link" style={{color:"#bd4c00"}}>
+            {/* <span className="font-link" style={{color:"#bd4c00"}}> */}
             ADVENTURE QUEST
-            </span>
+            {/* </span> */}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
