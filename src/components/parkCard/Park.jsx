@@ -26,15 +26,32 @@ export const Park = (props) => {
         type: "add",
         index: props.index,
         park: {park},
-        notes: " ",
+        notes: " no notes yet...",
       });
+
+      setBtnColor("yellow");
     };
+
+    const isPinned = (park) => {
+      
+      for (let par in listContext.listState) {
+       
+        if(listContext.listState[par].park.park.parkCode == park.parkCode){
+          return true;
+        }
+       
+      }
+      return false;
+        
+    };
+
+    const [btnColor, setBtnColor] = useState(() => isPinned(props.park) ? "yellow" : "white");
 
       return(
       
           <div>
           <Card sx={{ maxWidth: 345 }} style={{position: "relative"}}>
-        
+         <CardActionArea  onClick = {()=>navigate(`/parkInfo/${props.park.parkCode}`)}>
           <CardMedia 
             component="img"
             height="140"
@@ -46,17 +63,17 @@ export const Park = (props) => {
         
       
           <IconButton size="small"style={{marginLeft: "auto", position: "absolute", top: "1%", right: "1%", margin: "0%"}} onClick = {() => addToList(props.park)}>
-            <PushPinIcon style = {{color: "white"}}/>
+            <PushPinIcon style = {{color: btnColor}}/>
           </IconButton>
      
-        <CardActionArea>
+       
           {/* {console.log(props.park.images[0].url)} */}
-          <CardContent style={{height: 40}} sx={{
+          <CardContent style={{height: 40}} sx={{ 
                 // background:
                 //   'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
                 //   'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
               }}>
-            <Typography gutterBottom variant="h6" component="div" onClick = {()=>navigate(`/parkInfo/${props.park.parkCode}`)}>
+            <Typography gutterBottom variant="h6" component="div">
        
             {props.park.fullName}
             

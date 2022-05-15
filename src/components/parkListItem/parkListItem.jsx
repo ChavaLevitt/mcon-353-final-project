@@ -65,11 +65,14 @@ export const ParkListItem = (props) => {
 
     };
 
-    const addVisited = (props) => {
+    const addVisited = (props) => {     
       visitedContext.listDispatch({
+       
         type: "add",
         index: props.index,
         park: props.park,
+        parkid: props.park.park.parkCode,
+    
       });
       deletePinPark(props.index);
     };
@@ -78,15 +81,13 @@ export const ParkListItem = (props) => {
   return (
     <div>
       <Paper>
-        <Checkbox onClick = {() => addVisited(props)} color="default" />
+        <Checkbox checked = {false} onClick = {() => addVisited(props)} color="default" />
         <span  onClick = {()=>navigate(`/parkInfo/${props.park.park.parkCode}`)}>
           {/* {console.log(props.park.park.fullName)} */}
          {props.park.park.fullName}
          {/* {console.log(props.park)} */}
         </span>
-        <Button onClick={() => deletePinPark(props.index)}>
-          <DeleteIcon/>
-        </Button>
+       
 
         {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DesktopDatePicker
@@ -101,22 +102,26 @@ export const ParkListItem = (props) => {
         <TextareaAutosize
           maxRows={4}
           aria-label="maximum height"
-          placeholder="Maximum 4 rows"
+          placeholder="type notes here"
           value={theNotes}
           onChange={(e) => setTheNotes(e.target.value)}
-          style={{ width: 200 }}
+          style={{ width: 200, marginLeft:"5%" }}
         />
-        <div>notes: {props.notes}</div>
+        <div style={{marginLeft: "5%"}}>Notes: {props.notes}</div>
         </div>
-        {/* {console.log(props.notes)} */}
-        {/* {props.notes && props.notes.map((note, index) => (
-          <div>
-            {note}
-          </div>
-        ))} */}
-        {/* {console.log(props.index)} */}
-        {/* {console.log(props.park)} */}
+        
+        <table>
+          <tr>
+            <td style={{width:"95%"}}>
         <Button onClick={() => updateData(props)}>Save</Button>
+            </td>
+            <td>
+        <Button onClick={() => deletePinPark(props.index)}>
+          <DeleteIcon/>
+        </Button>
+            </td>
+        </tr>
+        </table>
       </Paper>
     </div>
   );

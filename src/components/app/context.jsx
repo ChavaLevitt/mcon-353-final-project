@@ -5,6 +5,14 @@ const updatePinsReducer = (state, action) => {
   var newPins = [];
   switch (action.type) {
     case "add":
+      for(let i = 0; i < state.length; i++){
+        if(state[i].park.park.parkCode == action.park.park.parkCode){
+          newPins = [...state];
+          return newPins;
+        }
+        
+      }
+     
       newPins = [
         ...state,
         {

@@ -6,11 +6,14 @@ import PushPinIcon from "@mui/icons-material/PushPin";
 import "./home.css";
 import IconButton from "@mui/material/IconButton";
 import park from "../../parkimg.jpg";
-
+import {useContext} from "react";
+import { SearchContext } from "../app/searchContext";
 
 export const Home = (props) => {
   const [parks, setParks] = useState([]);
   const [parkCode, setParkCode] = useState("");
+
+  const searchContext = useContext(SearchContext);
 
   const search = (props) => {
     fetch(
@@ -18,24 +21,20 @@ export const Home = (props) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        setParks(data.data);
+        searchContext.listDispatch({
+          type: "create",
+          list: {data},
+        });
+        //setParks(data.data);
       });
   };
 
-  useEffect(() => {
-    fetch(
-      `https://developer.nps.gov/api/v1/parks?api_key=5mroWmh53h64MgSfZssT1BIbJ0WrKqmV62CsW7yi`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setParks(data.data);
-      });
-  }, []);
+
 
   return (
     <div>
-      <div style={{ width: "75%", margin: "auto", position: "relative" }}>
-        <img
+      <div style={{ width: "75%", margin: "auto"}}>
+      <img
           src={park}
           style={{
             height: "300px",
@@ -44,7 +43,14 @@ export const Home = (props) => {
             marginTop: "2%",
           }}
         />
-        <div style={{position: "absolute", bottom: "5%", left: "2%", padding: "5px"}} >
+        </div>
+      <div 
+      style={{ width: "75%", margin: "auto"}}
+      >
+        
+        <div
+        //  style={{position: "absolute", bottom: "5%", left: "2%", padding: "5px"}}
+          >
           <table>
             <tr >
               <td style={{ width: "100%", margin: "auto" }} >
@@ -66,7 +72,7 @@ export const Home = (props) => {
                 <IconButton>
                   <SearchIcon
                     
-                    style={{ height: "100%", color: "white" }}
+                    style={{ height: "100%", color: "black" }}
                     fontSize="large"
                     variant="outlined"
                     onClick={() => search(parkCode)}
@@ -81,7 +87,7 @@ export const Home = (props) => {
       </div>
 
       <div id="grid" style={{ width: "75%", marginTop: "5%", margin: "auto" }}>
-        {parks.map((park, index) => (
+        {searchContext.listState.map((park, index) => (
           <div>
             <Park
               key={index}

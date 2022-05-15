@@ -23,7 +23,7 @@ export const Pinned = (props) =>{
         <div>
           <table>
             <tr>
-              <td> <h2>Pinned Parks</h2></td>
+              <td style={{width:"55%", padding:"2%"}}> <h2>Bucket List</h2></td>
               <td> <h2>Visited Parks</h2></td>
             </tr>
           <tr>

@@ -11,10 +11,12 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import "../../index.css";
+import logo1 from "../../arrow.png";
+import logo2 from "../../arrow2.png";
 
 const pages = [
   { title: "Home", path: "/" },
-  { title: "Pins", path: "/pinned" },
+  { title: "Bucket List", path: "/pinned" },
 ];
 
 export const Header = () => {
@@ -34,16 +36,23 @@ export const Header = () => {
     <AppBar position="static">
       <Container maxWidth="xl" style={{ background: "white", color:"black" }}>
         <Toolbar disableGutters>
+         
           <Typography className="font-link"
-            variant="h6"
+            style={{textAlign: "right", marginRight:"20%"}}
+            align="right"
+            variant="h4"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            sx={{ mr: 2, display: {  width:"66%", float: "right"} }}
           >
-            {/* <span className="font-link" style={{color:"#bd4c00"}}> */}
+           <img src={logo2} style={{width:"10%"}}/>
+            <span className="font-link" style={{color:"#bd4c00"}}>
             ADVENTURE QUEST
-            {/* </span> */}
+              
+            </span>
+            <img src={logo1} style={{width:"10%"}}/>
           </Typography>
+         
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -57,16 +66,17 @@ export const Header = () => {
               <MenuIcon />
             </IconButton>
             <Menu
+              style = {{float: "right", marginRight: "0%"}}
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: "bottom",
-                horizontal: "left",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
                 vertical: "top",
-                horizontal: "left",
+                horizontal: "right",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
@@ -76,10 +86,11 @@ export const Header = () => {
             >
               {pages.map((page) => (
                 <MenuItem
+                  style={{float: "right"}}
                   key={page.title}
                   onClick={() => handleCloseNavMenu(page)}
                 >
-                  <Typography textAlign="center" color="black">{page.title}</Typography>
+                  <Typography textAlign="right" color="black">{page.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>

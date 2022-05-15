@@ -15,8 +15,7 @@ import Button from '@mui/material/Button';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import IconButton from '@mui/material/IconButton';
 import { PinsContext } from "../app/context";
-
-//import Rating  from 'react-rating-scale';
+import { ReviewContext } from "../app/reviewContext";
 import Slider from 'react-carousel-responsive';
 import 'react-carousel-responsive/dist/styles.css';
 
@@ -42,10 +41,25 @@ export const ParkInfo = (props) => {
     listContext.listDispatch({
       type: "add",
       park: {park},
-      notes: " ",
+      notes: " no notes yet...",
     });
+    setBtnColor("yellow");
   };
 
+  const isPinned = (park) => {
+      
+    for (let par in listContext.listState) {
+     
+      if(listContext.listState[par].park.park.parkCode == parkCode){
+        return true;
+      }
+     
+    }
+    return false;
+      
+  };
+
+  const [btnColor, setBtnColor] = useState(() => isPinned(props.park) ? "yellow" : "black");
 
   useEffect(() => {
     fetch(
@@ -64,14 +78,14 @@ export const ParkInfo = (props) => {
         {/* <div style={{width: "75%", margin:"auto"}}><img src={park?.images[0]?.url} style={{height:"300px", width:"90%", margin: "auto", marginTop: "2%"}}/></div> */}
         <h2>{park.fullName}
         <IconButton size="small"style={{marginLeft: "auto"}} onClick = {() => addToList(park)}>
-        <PushPinIcon/>
+        <PushPinIcon style = {{color: btnColor}}/>
         </IconButton>
         </h2>
       </div>
-      {console.log(park.images)}
+
       <Pictures park = {park}/>
-      <div style={{ width: "75%", margin: "auto" }}>
-        <Accordion>
+      <div style={{ width: "75%", margin: "auto", marginTop: "2%", marginBottom:"2%" }}>
+        <Accordion expanded = {true} >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -83,7 +97,7 @@ export const ParkInfo = (props) => {
             <Typography>{park.description}</Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion>
+        <Accordion expanded = {true}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel2a-content"
@@ -100,7 +114,7 @@ export const ParkInfo = (props) => {
             </Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion>
+        <Accordion expanded = {true}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel3a-content"
@@ -120,7 +134,7 @@ export const ParkInfo = (props) => {
           </AccordionDetails>
         </Accordion>
 
-        <Accordion>
+        <Accordion expanded = {true}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel5a-content"
@@ -133,7 +147,7 @@ export const ParkInfo = (props) => {
           </AccordionDetails>
         </Accordion>
 
-        <Accordion>
+        <Accordion expanded = {true}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel6a-content"
@@ -154,7 +168,7 @@ export const ParkInfo = (props) => {
             </Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion>
+        <Accordion expanded = {true}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel7a-content"
@@ -172,7 +186,7 @@ export const ParkInfo = (props) => {
           </AccordionDetails>
         </Accordion>
 
-        <Accordion>
+        <Accordion expanded = {true}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel8a-content"
@@ -182,29 +196,11 @@ export const ParkInfo = (props) => {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <WriteReview />
+              <WriteReview park = {park}/>
             </Typography>
           </AccordionDetails>
         </Accordion>
       </div>
-
-
-      {/* <Box sx={{ width: 500, height: 450, overflowY: 'scroll' }}>
-      <ImageList variant="masonry" cols={3} gap={8}>
-        {park.images && park.images.map((item) => (
-          <ImageListItem key={item.img}>
-            <img
-              src={`${item.url}?w=248&fit=crop&auto=format`}
-              srcSet={`${item.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
-              // alt={item.title}
-              loading="lazy"
-            />
-            <ImageListItemBar position="below" title={item.author} />
-          </ImageListItem>
-        ))}
-      </ImageList>
-    </Box> */}
-  );
     </div>
   );
 };
@@ -214,23 +210,15 @@ function Pictures(props){
     <div>
         <div className="carousel-wrapper" style={{width:"40%", margin:"auto"}}>
             <Carousel infiniteLoop useKeyboardArrows autoPlay showThumbs={false}>
-              {/* {console.log(props.park)} */}
+              
             {props.park.images &&props.park.images.map((item, index) => (
               <div style={{height: "20rem"}}>
               <img  src={item.url}  onError={(e) => (e.target.onerror = null, e.target.src = logo3)}/>
               
             </div>
             ))}
-                {/* <div>
-                    <img src={park} />
-                </div>
-                <div>
-                    <img src={park} />
-                </div>
-                <div>
-                    <img src={park} />
-                </div> */}
-            </Carousel>
+               
+            </Carousel >
         </div>
    
     </div>
@@ -239,9 +227,34 @@ function Pictures(props){
 
 function WriteReview(props) {
   const [value, setValue] = React.useState(0);
+  const [theNotes, setTheNotes] = React.useState("");
+  const reviewContext = useContext(ReviewContext);
+
+  const submitReview = (props) => {
+  
+    reviewContext.listDispatch({
+      type: "add",
+      parkCode: props.park.parkCode,
+      notes: theNotes,
+      rating: value,
+    });
+   
+  };
+
   return (
     <div>
+      
       <div>
+      
+      {reviewContext.listState.get(props.park.parkCode) && reviewContext.listState.get(props.park.parkCode).map((rev, index) => (
+                <div>
+                  <Rating name="read-only" value={rev.rating}/>
+                  <div>
+                    {rev.notes}
+                  </div>
+                </div>
+              ))}
+        <div style={{marginTop: "4%"}}>Write a Review:</div>
         <Rating
           name="simple-controlled"
           value={value}
@@ -256,9 +269,10 @@ function WriteReview(props) {
           minRows={3}
           placeholder="write a review"
           style={{ width: 200 }}
+          onChange={(e) => setTheNotes(e.target.value)}
         />
       </div>
-      <Button variant="contained">Submit</Button>
+      <Button variant="contained" onClick={() => submitReview(props)}>Submit</Button>
     </div>
   );
 }

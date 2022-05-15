@@ -5,6 +5,13 @@ const updateVisitedReducer = (state, action) => {
   var visitedList = [];
   switch (action.type) {
     case "add":
+      for(let i = 0; i < state.length; i++){
+        if(state[i].park.park.parkCode == action.parkid){
+          visitedList = [...state];
+          return visitedList;
+        }
+        // console.log(state[i].park.park.parkCode)
+      }
       visitedList = [
         ...state,
         {          

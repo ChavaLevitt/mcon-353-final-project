@@ -8,21 +8,27 @@ import { Pinned } from "../pinned/pinned";
 import { ParkInfo } from "../parkInfo/parkInfo";
 import { PinsProvider } from "./context";
 import { VisitedProvider } from "./visitedContext";
+import { SearchProvider } from "./searchContext";
+import { ReviewProvider } from "./reviewContext";
 
 function App() {
   return (
-    <PinsProvider>
-      <VisitedProvider>
-        <HashRouter>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/pinned" element={<Pinned />} />
-            <Route path="/parkInfo/:parkCode" element={<ParkInfo />} />
-          </Routes>
-        </HashRouter>
-      </VisitedProvider>
-    </PinsProvider>
+    <SearchProvider>
+      <PinsProvider>
+        <VisitedProvider>
+          <ReviewProvider>
+            <HashRouter>
+              <Header />
+              <Routes>
+                <Route path="/" element={<Home />}></Route>
+                <Route path="/pinned" element={<Pinned />} />
+                <Route path="/parkInfo/:parkCode" element={<ParkInfo />} />
+              </Routes>
+            </HashRouter>
+          </ReviewProvider>
+        </VisitedProvider>
+      </PinsProvider>
+    </SearchProvider>
   );
 }
 
