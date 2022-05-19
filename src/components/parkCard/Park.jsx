@@ -1,6 +1,5 @@
 import {useNavigate} from "react-router-dom"
-import {React, useState, useEffect} from "react";
-import TextField from "@mui/material/TextField";
+import {React, useState} from "react";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,9 +9,9 @@ import logo3 from "../../parks.jpg";
 import PushPinIcon from '@mui/icons-material/PushPin';
 import IconButton from '@mui/material/IconButton';
 
-import ImageListItemBar from '@mui/material/ImageListItemBar';
+
 import {useContext} from "react";
-import { Button, CardActions } from '@mui/material';
+import { CardActions } from '@mui/material';
 import { PinsContext } from "../app/context";
 
 export const Park = (props) => {
@@ -29,7 +28,7 @@ export const Park = (props) => {
         notes: " no notes yet...",
       });
 
-      setBtnColor("yellow");
+      setBtnColor("#bd4c00");
     };
 
     const isPinned = (park) => {
@@ -45,13 +44,13 @@ export const Park = (props) => {
         
     };
 
-    const [btnColor, setBtnColor] = useState(() => isPinned(props.park) ? "yellow" : "white");
+    const [btnColor, setBtnColor] = useState(() => isPinned(props.park) ? "#bd4c00" : "white");
 
       return(
       
           <div>
           <Card sx={{ maxWidth: 345 }} style={{position: "relative"}}>
-         <CardActionArea  onClick = {()=>navigate(`/parkInfo/${props.park.parkCode}`)}>
+         
           <CardMedia 
             component="img"
             height="140"
@@ -68,6 +67,7 @@ export const Park = (props) => {
      
        
           {/* {console.log(props.park.images[0].url)} */}
+          <CardActionArea  onClick = {()=>navigate(`/parkInfo/${props.park.parkCode}`)}>
           <CardContent style={{height: 40}} sx={{ 
                 // background:
                 //   'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +

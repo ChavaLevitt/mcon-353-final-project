@@ -16,6 +16,7 @@ import logo2 from "../../arrow2.png";
 
 const pages = [
   { title: "Home", path: "/" },
+  { title: "Search", path: "/search" },
   { title: "Bucket List", path: "/pinned" },
 ];
 
@@ -38,12 +39,12 @@ export const Header = () => {
         <Toolbar disableGutters>
          
           <Typography className="font-link"
-            style={{textAlign: "right", marginRight:"20%"}}
+            style={{textAlign: "right", marginRight:"15%"}}
             align="right"
             variant="h4"
             noWrap
             component="div"
-            sx={{ mr: 2, display: {  width:"66%", float: "right"} }}
+            sx={{ mr: 2, display: {  width:"69%", float: "right"} }}
           >
            <img src={logo2} style={{width:"10%"}}/>
             <span className="font-link" style={{color:"#bd4c00"}}>

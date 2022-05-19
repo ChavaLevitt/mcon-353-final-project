@@ -43,7 +43,7 @@ export const ParkInfo = (props) => {
       park: {park},
       notes: " no notes yet...",
     });
-    setBtnColor("yellow");
+    setBtnColor("#bd4c00");
   };
 
   const isPinned = (park) => {
@@ -59,7 +59,7 @@ export const ParkInfo = (props) => {
       
   };
 
-  const [btnColor, setBtnColor] = useState(() => isPinned(props.park) ? "yellow" : "black");
+  const [btnColor, setBtnColor] = useState(() => isPinned(props.park) ? "#bd4c00" : "black");
 
   useEffect(() => {
     fetch(
@@ -87,7 +87,7 @@ export const ParkInfo = (props) => {
       <div style={{ width: "75%", margin: "auto", marginTop: "2%", marginBottom:"2%" }}>
         <Accordion expanded = {true} >
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
+            // expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
@@ -99,7 +99,6 @@ export const ParkInfo = (props) => {
         </Accordion>
         <Accordion expanded = {true}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
@@ -116,7 +115,6 @@ export const ParkInfo = (props) => {
         </Accordion>
         <Accordion expanded = {true}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
             aria-controls="panel3a-content"
             id="panel3a-header"
           >
@@ -136,7 +134,6 @@ export const ParkInfo = (props) => {
 
         <Accordion expanded = {true}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
             aria-controls="panel5a-content"
             id="panel5a-header"
           >
@@ -149,7 +146,6 @@ export const ParkInfo = (props) => {
 
         <Accordion expanded = {true}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
             aria-controls="panel6a-content"
             id="panel6a-header"
           >
@@ -170,7 +166,6 @@ export const ParkInfo = (props) => {
         </Accordion>
         <Accordion expanded = {true}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
             aria-controls="panel7a-content"
             id="panel7a-header"
           >
@@ -188,7 +183,6 @@ export const ParkInfo = (props) => {
 
         <Accordion expanded = {true}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
             aria-controls="panel8a-content"
             id="panel8a-header"
           >
@@ -229,7 +223,7 @@ function WriteReview(props) {
   const [value, setValue] = React.useState(0);
   const [theNotes, setTheNotes] = React.useState("");
   const reviewContext = useContext(ReviewContext);
-
+  const [allReviews, setAllReviews] = React.useState(reviewContext.listState);
   const submitReview = (props) => {
   
     reviewContext.listDispatch({
@@ -238,6 +232,8 @@ function WriteReview(props) {
       notes: theNotes,
       rating: value,
     });
+    setTheNotes("");
+    setValue(0);
    
   };
 
@@ -247,14 +243,14 @@ function WriteReview(props) {
       <div>
       
       {reviewContext.listState.get(props.park.parkCode) && reviewContext.listState.get(props.park.parkCode).map((rev, index) => (
-                <div>
+                <div style={{width: 800, marginTop:"1%"}}>
                   <Rating name="read-only" value={rev.rating}/>
                   <div>
                     {rev.notes}
                   </div>
                 </div>
               ))}
-        <div style={{marginTop: "4%"}}>Write a Review:</div>
+        <div style={{marginTop: "2%"}}>Write a Review:</div>
         <Rating
           name="simple-controlled"
           value={value}
@@ -268,7 +264,8 @@ function WriteReview(props) {
           aria-label="minimum height"
           minRows={3}
           placeholder="write a review"
-          style={{ width: 200 }}
+          style={{ width: 800, height: 200 }}
+          value={theNotes}
           onChange={(e) => setTheNotes(e.target.value)}
         />
       </div>

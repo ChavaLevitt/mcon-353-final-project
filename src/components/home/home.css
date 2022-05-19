@@ -1,16 +1,18 @@
-#grid {
+#grid1 {
     display: grid;
     grid-template-rows: repeat(4, 1fr);
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
   }
   
-  #grid > div {
+  #grid1 > div {
     font-size: 4vw;
     padding: 10px;
   }
 
-   /* body{
-     background-color:#ffebcd; 
-    background-image: url(../../background.jpg);
-  }  */
+   body{
+     /* background-color:#ffebcd;  */
+    /* background-image: url(../../background.jpg); */
+    background-image: linear-gradient(to bottom,rgb(233,196,152), rgb(177,194,214));
+
+  } 
