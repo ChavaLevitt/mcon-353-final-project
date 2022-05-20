@@ -35,25 +35,23 @@ export const Header = () => {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl" style={{ background: "white", color:"black" }}>
+      <Container maxWidth="xl" style={{ background: "white", color: "black" }}>
         <Toolbar disableGutters>
-         
-          <Typography className="font-link"
-            style={{textAlign: "right", marginRight:"15%"}}
+          <Typography
+            className="font-link"
+            style={{ textAlign: "right", marginRight: "15%" }}
             align="right"
             variant="h4"
             noWrap
             component="div"
-            sx={{ mr: 2, display: {  width:"69%", float: "right"} }}
+            sx={{ mr: 2, display: { width: "69%", float: "right" } }}
           >
-           <img src={logo2} style={{width:"10%"}}/>
-            <span className="font-link" style={{color:"#bd4c00"}}>
-            ADVENTURE QUEST
-              
+            <img src={logo2} style={{ width: "10%" }} />
+            <span className="font-link" style={{ color: "#bd4c00" }}>
+              ADVENTURE QUEST
             </span>
-            <img src={logo1} style={{width:"10%"}}/>
+            <img src={logo1} style={{ width: "10%" }} />
           </Typography>
-         
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -67,7 +65,7 @@ export const Header = () => {
               <MenuIcon />
             </IconButton>
             <Menu
-              style = {{float: "right", marginRight: "0%"}}
+              style={{ float: "right", marginRight: "0%" }}
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -87,11 +85,13 @@ export const Header = () => {
             >
               {pages.map((page) => (
                 <MenuItem
-                  style={{float: "right"}}
+                  style={{ float: "right" }}
                   key={page.title}
                   onClick={() => handleCloseNavMenu(page)}
                 >
-                  <Typography textAlign="right" color="black">{page.title}</Typography>
+                  <Typography textAlign="right" color="black">
+                    {page.title}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -102,7 +102,7 @@ export const Header = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-           NATIONAL PARKS
+            ADVENTURE QUEST
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (

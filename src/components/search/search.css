@@ -1,11 +1,11 @@
 #grid {
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-  }
-  
-  #grid > div {
-    font-size: 4vw;
-    padding: 10px;
-  }
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+#grid > div {
+  font-size: 4vw;
+  padding: 10px;
+}

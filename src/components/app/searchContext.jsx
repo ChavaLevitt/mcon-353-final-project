@@ -5,7 +5,6 @@ const updateSearchReducer = (state, action) => {
   var searchList = [];
   switch (action.type) {
     case "create":
-      
       searchList = action.list.data.data;
       return searchList;
 
@@ -30,9 +29,8 @@ export const SearchProvider = (props) => {
       .then((data) => {
         dispatchChangeSearch({
           type: "create",
-          list: {data},
+          list: { data },
         });
-       
       });
   }, []);
 

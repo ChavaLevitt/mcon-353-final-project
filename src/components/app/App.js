@@ -1,7 +1,7 @@
 import logo from "../../logo.svg";
 import "./App.css";
 import { Home } from "../home/home";
-import { React, useState, useEffect } from "react";
+import { React } from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { Header } from "../header/header";
 import { Pinned } from "../pinned/pinned";
