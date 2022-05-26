@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 import { VisitedContext } from "../app/visitedContext";
 import { Button } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import TextField from '@mui/material/TextField';
 
 export const ParkListItem = (props) => {
   const navigate = useNavigate();
@@ -59,14 +60,18 @@ export const ParkListItem = (props) => {
         </span>
 
         <div>
-          <TextareaAutosize
+          {/* <TextareaAutosize
             maxRows={4}
             aria-label="maximum height"
             placeholder="type notes here"
             value={theNotes}
             onChange={(e) => setTheNotes(e.target.value)}
             style={{ width: 200, marginLeft: "5%" }}
-          />
+          /> */}
+          <TextField id="outlined-basic" label="type notes here" variant="outlined"
+            value={theNotes}
+            onChange={(e) => setTheNotes(e.target.value)} style={{ width: 200, marginLeft: "5%" }}/>
+
           <div style={{ marginLeft: "5%" }}>Notes: {props.notes}</div>
         </div>
 
